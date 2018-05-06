@@ -5,8 +5,6 @@ import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angul
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 
-import { BarcodeScanner } from "nativescript-barcodescanner";
-
 @NgModule({
     bootstrap: [
         AppComponent
@@ -21,9 +19,6 @@ import { BarcodeScanner } from "nativescript-barcodescanner";
     ],
     schemas: [
         NO_ERRORS_SCHEMA
-    ],
-    providers: [
-        BarcodeScanner
     ]
 })
 export class AppModule { }

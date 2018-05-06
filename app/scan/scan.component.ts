@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { BarcodeScanner } from "nativescript-barcodescanner";
 
 /* ***********************************************************
 * Before you can navigate to this page from your app, you need to reference this page's module in the
@@ -13,15 +14,35 @@ import { Component, OnInit } from "@angular/core";
     templateUrl: "./scan.component.html"
 })
 export class ScanComponent implements OnInit {
-    constructor() {
-        /* ***********************************************************
-        * Use the constructor to inject app services that you need in this component.
-        *************************************************************/
+
+    orientation = require("nativescript-orientation");
+
+    constructor(private barcodeScanner: BarcodeScanner) {
     }
 
     ngOnInit(): void {
-        /* ***********************************************************
-        * Use the "ngOnInit" handler to initialize data for this component.
-        *************************************************************/
+    }
+
+    onScan() {
+      this.barcodeScanner.scan({
+        formats: "QR_CODE, EAN_13",
+        showFlipCameraButton: true,
+        preferFrontCamera: false,
+        showTorchButton: true,
+        beepOnScan: true,
+        torchOn: false,
+        resultDisplayDuration: 500,
+        orientation: this.orientation,
+        openSettingsIfPermissionWasPreviouslyDenied: true
+      }).then((result) => {
+            alert({
+              title: "Scan eredménye",
+              message: "Formátum: " + result.format + ",\nTartalom: " + result.text,
+              okButtonText: "OK"
+            });
+          }, (errorMessage) => {
+            console.log("Hiba a beolvasáskor: " + errorMessage);
+          }
+      );
     }
 }

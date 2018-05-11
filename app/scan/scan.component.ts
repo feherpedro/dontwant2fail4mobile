@@ -1,5 +1,8 @@
 import { Component, OnInit } from "@angular/core";
+import * as app from "application";
 import { BarcodeScanner } from "nativescript-barcodescanner";
+import { RadSideDrawer } from "nativescript-ui-sidedrawer";
+import * as dialogs from "ui/dialogs";
 
 /* ***********************************************************
 * Before you can navigate to this page from your app, you need to reference this page's module in the
@@ -15,7 +18,11 @@ import { BarcodeScanner } from "nativescript-barcodescanner";
 })
 export class ScanComponent implements OnInit {
 
-    orientation = require("nativescript-orientation");
+    private scanned = false;
+    private scannedFormat = "";
+    private scannedText = "";
+    private confirmOptions: dialogs.ConfirmOptions = {};
+    // orientation = require("nativescript-orientation");        formats: "QR_CODE, EAN_13",
 
     constructor(private barcodeScanner: BarcodeScanner) {
     }
@@ -24,25 +31,38 @@ export class ScanComponent implements OnInit {
     }
 
     onScan() {
-      this.barcodeScanner.scan({
-        formats: "QR_CODE, EAN_13",
-        showFlipCameraButton: true,
-        preferFrontCamera: false,
-        showTorchButton: true,
-        beepOnScan: true,
-        torchOn: false,
-        resultDisplayDuration: 500,
-        orientation: this.orientation,
-        openSettingsIfPermissionWasPreviouslyDenied: true
-      }).then((result) => {
-            alert({
-              title: "Scan eredménye",
-              message: "Formátum: " + result.format + ",\nTartalom: " + result.text,
-              okButtonText: "OK"
-            });
-          }, (errorMessage) => {
+        this.barcodeScanner.scan({
+            showFlipCameraButton: true,
+            preferFrontCamera: false,
+            showTorchButton: true,
+            beepOnScan: true,
+            torchOn: false,
+            resultDisplayDuration: 500,
+            orientation: undefined,
+            openSettingsIfPermissionWasPreviouslyDenied: true
+        }).then((result) => {
+            console.log("Formátum: " + result.format + ",\nTartalom: " + result.text);
+            this.scanned = true;
+            this.scannedFormat = result.format;
+            this.scannedText = result.text;
+            const confirmOptions: dialogs.ConfirmOptions = {
+                title: "Scan eredménye",
+                message: "Formátum: " + result.format + ",\nTartalom: " + result.text,
+                okButtonText: "Tovább a " + result.text + " vonalkódú termékhez",
+                cancelButtonText: "Vissza"
+            };
+            setTimeout(() => {
+                dialogs.confirm(confirmOptions).then((action) => {
+                    console.log("Dialog result: " + action);
+                });
+            }, 0);
+        }, (errorMessage) => {
             console.log("Hiba a beolvasáskor: " + errorMessage);
-          }
-      );
+        });
+    }
+
+    onDrawerButtonTap(): void {
+        const sideDrawer = <RadSideDrawer>app.getRootView();
+        sideDrawer.showDrawer();
     }
 }

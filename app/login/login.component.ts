@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import * as app from "application";
+import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 
 /* ***********************************************************
 * Before you can navigate to this page from your app, you need to reference this page's module in the
@@ -49,5 +51,10 @@ export class LoginComponent implements OnInit {
         /* ***********************************************************
         * Call your Forgot Password logic here.
         *************************************************************/
+    }
+
+    onDrawerButtonTap(): void {
+        const sideDrawer = <RadSideDrawer>app.getRootView();
+        sideDrawer.showDrawer();
     }
 }

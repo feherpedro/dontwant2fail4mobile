@@ -8,6 +8,9 @@ const routes: Routes = [
     { path: "browse", loadChildren: "./browse/browse.module#BrowseModule" },
     { path: "search", loadChildren: "./search/search.module#SearchModule" },
     { path: "featured", loadChildren: "./featured/featured.module#FeaturedModule" },
+    { path: "scan", loadChildren: "./scan/scan.module#ScanModule" },
+    { path: "login", loadChildren: "./login/login.module#LoginModule" },
+    { path: "signup", loadChildren: "./signup/signup.module#SignupModule" },
     { path: "settings", loadChildren: "./settings/settings.module#SettingsModule" }
 ];
 

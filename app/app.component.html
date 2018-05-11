@@ -10,7 +10,7 @@ http://docs.telerik.com/devtools/nativescript-ui/Controls/NativeScript/SideDrawe
             <Label class="sidedrawer-header-brand" text="User Name"></Label>
             <Label class="footnote" text="username@mail.com"></Label>
         </StackLayout>
-    
+
         <ScrollView row="1">
             <StackLayout class="sidedrawer-content">
                 <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('Home')" (tap)="onNavItemTap('/home')">
@@ -32,7 +32,24 @@ http://docs.telerik.com/devtools/nativescript-ui/Controls/NativeScript/SideDrawe
                     <Label col="0" text="&#xf005;" class="fa"></Label>
                     <Label col="1" text="Featured" class="p-r-10"></Label>
                 </GridLayout>
-    
+
+                <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('Scan')" (tap)="onNavItemTap('/scan')">
+                    <Label col="0" text="&#xf005;" class="fa"></Label>
+                    <Label col="1" text="Scan" class="p-r-10"></Label>
+                </GridLayout>
+
+                <StackLayout class="hr-light"></StackLayout>
+
+                <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('Login')" (tap)="onNavItemTap('/login')">
+                    <Label col="0" text="&#xf005;" class="fa"></Label>
+                    <Label col="1" text="Login" class="p-r-10"></Label>
+                </GridLayout>
+
+                <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('Signup')" (tap)="onNavItemTap('/signup')">
+                    <Label col="0" text="&#xf005;" class="fa"></Label>
+                    <Label col="1" text="Signup" class="p-r-10"></Label>
+                </GridLayout>
+
                 <StackLayout class="hr-light"></StackLayout>
 
                 <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('Settings')" (tap)="onNavItemTap('/settings')">
